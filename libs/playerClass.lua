@@ -11,6 +11,7 @@ function Player.new(data)
     instance.playerSpeed = data.playerSpeed
     instance.playerX = data.playerX
     instance.playerY = data.playerY
+    instance.inventory = data.inventory
 
     return instance
 end
@@ -22,6 +23,7 @@ end
 ---@param playerSpeed number
 ---@param playerX number
 ---@param playerY number
+---@param inventory table
 Player = Player.new({
     playerName = "Pegos",
     playerHealth = 100,
@@ -30,6 +32,7 @@ Player = Player.new({
     playerSpeed = 3,
     playerX = 400,
     playerY = 200,
+    inventory = {}
 })
 
 function Player:showStats()
@@ -74,6 +77,10 @@ function Player:getPosition()
     return self.playerX, self.playerY
 end
 
+function Player:getInventory()
+    return self.inventory
+end
+
 -- Sets
 
 ---@param name string
@@ -115,4 +122,47 @@ end
 function Player:setPosition(pos)
     self.playerX = pos.x
     self.playerY = pos.y
+end
+
+---@param inventory table
+function Player:setInventory(inventory)
+    self.inventory = inventory
+end
+
+---@param item Item
+function Player:addItem(item)
+    table.insert(self.inventory, item)
+end
+
+---@param item Item
+function Player:removeItem(item)
+    for i, v in ipairs(self.inventory) do
+        if v == item then
+            table.remove(self.inventory, i)
+        end
+    end
+end
+
+---@param item item
+function Player:hasItem(item, count)
+    if count == nil then 
+        for i, v in ipairs(self.inventory) do
+            if v == item then
+                return true
+            end
+        end
+        return false
+    else
+        local count = 0
+        for i, v in ipairs(self.inventory) do
+            if v == item then
+                count = count + 1
+            end
+        end
+        if count >= count then
+            return true
+        else
+            return false
+        end
+    end
 end

@@ -7,6 +7,8 @@ function love.load()
     Anim = require 'libs/anim8'
     require "libs/playerClass"
     require "libs/playerAnimClass"
+    require "libs/enemyClass"
+    require "config.lua"
 end
 
 function love.update(dt)
